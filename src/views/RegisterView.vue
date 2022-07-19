@@ -1,14 +1,46 @@
 <script setup>
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import { FormKit } from '@formkit/vue';
+import { ref } from 'vue';
 
+import Alert from '@/components/Alert.vue';
 import Button from '@/components/Button.vue';
 import Input from '@/components/Input.vue';
+import apiClient from '@/libs/apiClient';
 
-const onSubmit = (values) => console.log(values);
+const router = useRouter();
+
+const submitted = ref(false);
+const errorMessage = ref('');
+
+const onSubmit = async (values) => {
+  errorMessage.value = '';
+  submitted.value = true;
+
+  const { email, firstName, lastName, password } = values;
+  const requestBody = {
+    first_name: firstName,
+    last_name: lastName,
+    email,
+    password,
+  };
+
+  try {
+    const { status } = await apiClient.post('/register', requestBody);
+    if (status === 201) {
+      router.replace('/login');
+    }
+  } catch (error) {
+    errorMessage.value = error.response?.data?.message || error?.message;
+  } finally {
+    submitted.value = false;
+  }
+};
 </script>
 
 <template>
+  <Alert :message="errorMessage" v-if="errorMessage" />
+
   <FormKit
     type="form"
     id="login-form"
@@ -45,7 +77,7 @@ const onSubmit = (values) => console.log(values);
     />
 
     <div class="mt-7">
-      <Button type="submit">Register</Button>
+      <Button type="submit" :disabled="submitted">Register</Button>
 
       <Button variant="outlined" is="RouterLink" to="/login" class="mt-2"
         >Login</Button
