@@ -32,9 +32,8 @@ const onSubmit = async (values) => {
     }
   } catch (error) {
     errorMessage.value = error.response?.data?.message || error?.message;
-  } finally {
-    submitted.value = false;
   }
+  submitted.value = false;
 };
 </script>
 

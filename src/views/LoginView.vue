@@ -18,6 +18,7 @@ const errorMessage = ref('');
 const onSubmit = async (values) => {
   errorMessage.value = '';
   submitted.value = true;
+
   try {
     const response = await apiClient.post('/login', values);
     const { data: { token } = {}, status } = response;
@@ -28,9 +29,8 @@ const onSubmit = async (values) => {
     }
   } catch (error) {
     errorMessage.value = error.response?.data?.message || error?.message;
-  } finally {
-    submitted.value = false;
   }
+  submitted.value = false;
 };
 </script>
 
