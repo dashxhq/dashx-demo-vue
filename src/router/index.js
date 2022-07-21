@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { LOCAL_STORAGE_JWT_TOKEN } from '@/utils/constants';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +8,7 @@ const router = createRouter({
       path: '/',
       component: () => import('../views/DashboardView.vue'),
       beforeEnter: () => {
-        if (localStorage.getItem('token')) return true;
+        if (localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN)) return true;
         return '/login';
       },
     },
@@ -37,7 +38,7 @@ const router = createRouter({
         },
       ],
       beforeEnter: () => {
-        if (!localStorage.getItem('token')) return true;
+        if (!localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN)) return true;
         return '/';
       },
     },
@@ -51,6 +52,11 @@ const router = createRouter({
           meta: { title: 'Contact Us' },
         },
       ],
+    },
+    // Not Found (404) Route
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/login',
     },
   ],
 });
