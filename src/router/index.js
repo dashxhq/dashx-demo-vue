@@ -6,7 +6,26 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('../views/DashboardView.vue'),
+      component: () =>
+        import('../components/layouts/LeftNavbarLayout/index.vue'),
+      children: [
+        {
+          path: '',
+          component: () => import('../views/DashboardView.vue'),
+        },
+        {
+          path: '/store',
+          component: () => import('../views/StoreView.vue'),
+        },
+        {
+          path: '/bookmarks',
+          component: () => import('../views/BookmarksView.vue'),
+        },
+        {
+          path: '/billing',
+          component: () => import('../views/BillingView.vue'),
+        },
+      ],
       beforeEnter: () => {
         if (localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN)) return true;
         return '/login';

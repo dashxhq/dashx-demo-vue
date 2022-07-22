@@ -9,8 +9,12 @@ export const useUserStore = defineStore({
     user: null,
   }),
   actions: {
-    setUser(jwtToken) {
-      localStorage.setItem(LOCAL_STORAGE_JWT_TOKEN, jwtToken);
+    initUser() {
+      const jwtToken = localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN);
+      if (!jwtToken) {
+        this.user = null;
+        return;
+      }
       const decodedToken = jwtDecode(jwtToken);
       const { dashx_token: dashxToken, user } = decodedToken;
       dx.setIdentity(user.id, dashxToken);

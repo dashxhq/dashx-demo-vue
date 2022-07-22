@@ -7,10 +7,9 @@ import Alert from '@/components/Alert.vue';
 import Button from '@/components/Button.vue';
 import Input from '@/components/Input.vue';
 import apiClient from '@/libs/apiClient';
-import { useUserStore } from '@/stores/user';
+import { LOCAL_STORAGE_JWT_TOKEN } from '@/utils/constants';
 
 const router = useRouter();
-const { setUser } = useUserStore();
 
 const submitted = ref(false);
 const errorMessage = ref('');
@@ -24,7 +23,7 @@ const onSubmit = async (values) => {
     const { data: { token } = {}, status } = response;
 
     if (status === 200 && token) {
-      setUser(token);
+      localStorage.setItem(LOCAL_STORAGE_JWT_TOKEN, token);
       router.replace('/');
     }
   } catch (error) {
