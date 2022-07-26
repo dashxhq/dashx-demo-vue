@@ -60,7 +60,7 @@ const onSubmit = async (values) => {
     />
 
     <div class="mt-7">
-      <Button type="submit" :disabled="submitted">Submit</Button>
+      <Button type="submit" block :disabled="submitted">Submit</Button>
     </div>
   </FormKit>
   <div class="text-sm text-center pt-6">

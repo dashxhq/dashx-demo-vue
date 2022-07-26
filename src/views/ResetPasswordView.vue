@@ -87,7 +87,7 @@ const onSubmit = async (values) => {
     />
 
     <div class="mt-7">
-      <Button type="submit">Submit</Button>
+      <Button block type="submit">Submit</Button>
     </div>
   </FormKit>
   <div class="text-sm text-center pt-6">

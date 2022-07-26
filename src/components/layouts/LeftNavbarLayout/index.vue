@@ -14,8 +14,8 @@ userStore.initUser();
   <Sidebar class="hidden" />
   <MobileSidebar />
   <Navbar />
-  <div className="md:pl-64 flex flex-col items-start">
-    <div class="p-4">
+  <div className="md:pl-64">
+    <div class="p-6 flex flex-col">
       <RouterView />
     </div>
   </div>

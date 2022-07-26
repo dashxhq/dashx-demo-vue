@@ -76,9 +76,9 @@ const onSubmit = async (values) => {
     />
 
     <div class="mt-7">
-      <Button type="submit" :disabled="submitted">Register</Button>
+      <Button block type="submit" :disabled="submitted">Register</Button>
 
-      <Button variant="outlined" is="RouterLink" to="/login" class="mt-2"
+      <Button block variant="outlined" is="RouterLink" to="/login" class="mt-2"
         >Login</Button
       >
     </div>
