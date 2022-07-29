@@ -1,6 +1,4 @@
-<script setup>
-import { FormKit } from '@formkit/vue';
-</script>
+<script setup></script>
 
 <template>
   <FormKit

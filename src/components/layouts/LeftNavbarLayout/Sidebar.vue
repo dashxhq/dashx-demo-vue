@@ -1,11 +1,5 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-import {
-  HomeIcon,
-  BookmarkIcon,
-  CurrencyDollarIcon,
-  DatabaseIcon,
-} from '@heroicons/vue/outline';
 
 import SidebarNavigation from './SidebarNavigation.vue';
 </script>

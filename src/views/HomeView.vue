@@ -2,9 +2,9 @@
 import { onMounted, reactive, ref } from 'vue';
 
 import Alert from '@/components/Alert.vue';
-import Button from '@/components/Button.vue';
 import Loader from '@/components/Loader.vue';
 import PostCard from '@/components/PostCard.vue';
+import AddPost from '@/components/AddPost.vue';
 import apiClient from '@/libs/apiClient';
 import dayjs from '@/libs/dayjs';
 
@@ -56,12 +56,18 @@ const toggleBookmark = async ({ id: postId }) => {
     });
   }
 };
+
+const onAddPostSuccess = () => {
+  fetchPosts();
+};
 </script>
 
 <template>
   <div class="flex items-start mb-8">
     <h1 class="text-2xl font-semibold text-gray-900">Posts</h1>
-    <Button class="ml-auto">Add Post</Button>
+    <div class="ml-auto">
+      <AddPost @addPostSuccess="onAddPostSuccess" />
+    </div>
   </div>
   <Loader v-if="fetching" message="Loading posts" />
   <Alert v-if="alert.message" :type="alert.type" :message="alert.message" />

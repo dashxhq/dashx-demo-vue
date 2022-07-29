@@ -1,7 +1,7 @@
 <script setup>
 import { RouterLink, useRouter } from 'vue-router';
 import { FormKit } from '@formkit/vue';
-import { reactive, ref } from '@vue/reactivity';
+import { reactive, ref } from 'vue';
 import jwtDecode from 'jwt-decode';
 
 import Alert from '@/components/Alert.vue';
