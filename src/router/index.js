@@ -29,6 +29,10 @@ const router = createRouter({
           path: '/update-profile',
           component: () => import('../views/UpdateProfile.vue'),
         },
+        {
+          path: '/settings',
+          component: () => import('../views/SettingsView.vue'),
+        },
       ],
       beforeEnter: () => {
         if (localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN)) return true;

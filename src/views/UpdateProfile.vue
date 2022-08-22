@@ -1,11 +1,11 @@
 <script setup>
 import { reactive, ref } from 'vue';
 
-import Input from '../components/Input.vue';
-import apiClient from '../libs/apiClient';
-import Button from '../components/Button.vue';
-import Alert from '../components/Alert.vue';
-import Loader from '../components/Loader.vue';
+import Input from '@/components/Input.vue';
+import apiClient from '@/libs/apiClient';
+import Button from '@/components/Button.vue';
+import Alert from '@/components/Alert.vue';
+import Loader from '@/components/Loader.vue';
 
 const fetching = ref(false);
 const loadingUser = ref(false);
@@ -66,8 +66,7 @@ const onSubmit = async (values) => {
 
     <FormKit
       type="form"
-      id="login-form"
-      submit-label="Login"
+      id="profile-form"
       @submit="onSubmit"
       :actions="false"
       :value="user"
