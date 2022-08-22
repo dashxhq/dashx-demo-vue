@@ -7,7 +7,7 @@ import Navbar from './Navbar.vue';
 import { useUserStore } from '@/stores/user';
 
 const userStore = useUserStore();
-userStore.initUser();
+userStore.fetchUser();
 </script>
 
 <template>
