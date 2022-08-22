@@ -25,6 +25,10 @@ const router = createRouter({
           path: '/billing',
           component: () => import('../views/BillingView.vue'),
         },
+        {
+          path: '/update-profile',
+          component: () => import('../views/UpdateProfile.vue'),
+        },
       ],
       beforeEnter: () => {
         if (localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN)) return true;
