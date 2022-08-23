@@ -1,16 +1,41 @@
 <script setup>
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import { FormKit } from '@formkit/vue';
+import { ref } from 'vue';
 
+import Alert from '@/components/Alert.vue';
 import Button from '@/components/Button.vue';
 import Input from '@/components/Input.vue';
+import apiClient from '@/libs/apiClient';
+import { LOCAL_STORAGE_JWT_TOKEN } from '@/utils/constants';
 
-const loading = false;
+const router = useRouter();
 
-const onSubmit = (values) => console.log(values);
+const submitted = ref(false);
+const errorMessage = ref('');
+
+const onSubmit = async (values) => {
+  errorMessage.value = '';
+  submitted.value = true;
+
+  try {
+    const response = await apiClient.post('/login', values);
+    const { data: { token } = {}, status } = response;
+
+    if (status === 200 && token) {
+      localStorage.setItem(LOCAL_STORAGE_JWT_TOKEN, token);
+      router.replace('/');
+    }
+  } catch (error) {
+    errorMessage.value = error.response?.data?.message || error?.message;
+  }
+  submitted.value = false;
+};
 </script>
 
 <template>
+  <Alert :message="errorMessage" v-if="errorMessage" />
+
   <FormKit
     type="form"
     id="login-form"
@@ -54,9 +79,14 @@ const onSubmit = (values) => console.log(values);
       </div>
     </div>
     <div class="mt-7">
-      <Button type="submit" :loading="loading">Login</Button>
+      <Button block type="submit" :disabled="submitted">Login</Button>
 
-      <Button variant="outlined" is="RouterLink" to="/register" class="mt-2"
+      <Button
+        block
+        variant="outlined"
+        is="RouterLink"
+        to="/register"
+        class="mt-2"
         >Register</Button
       >
     </div>

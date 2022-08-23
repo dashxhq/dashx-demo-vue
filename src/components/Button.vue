@@ -1,9 +1,8 @@
 <script setup>
 defineProps({
   type: String,
-  loading: Boolean,
   variant: String,
-  onClick: Function,
+  block: Boolean,
   is: {
     type: String,
     default: 'button',
@@ -15,14 +14,13 @@ defineProps({
   <component
     :is="$props.is"
     :class="[
-      'block text-center group relative w-full hover:bg-indigo-500 gap-3 justify-center py-2 px-4 border border-transparent font-medium text-base rounded-md hover:text-white focus:outline-none focus:ring-1 focus:ring-indigo-500 transition duration-300 text-indigo-500',
-      variant !== 'outlined'
+      'text-center group relative hover:bg-indigo-500 gap-3 justify-center py-2 px-4 border border-transparent font-medium text-base rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 transition duration-300 disabled:opacity-50',
+      $props.variant !== 'outlined'
         ? 'bg-indigo-600 text-white'
-        : 'border-indigo-500 hover:text-white',
+        : 'border-indigo-500 text-indigo-500 hover:text-white',
+      { 'block w-full': $props.block },
     ]"
     :type="$props.type"
-    @onClick="$props.onClick"
-    :disabled="$props.loading"
   >
     <slot />
   </component>

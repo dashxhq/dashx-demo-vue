@@ -1,13 +1,41 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { LOCAL_STORAGE_JWT_TOKEN } from '@/utils/constants';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      component: () => import('../views/DashboardView.vue'),
+      component: () =>
+        import('../components/layouts/LeftNavbarLayout/index.vue'),
+      children: [
+        {
+          path: '',
+          component: () => import('../views/HomeView.vue'),
+        },
+        {
+          path: '/store',
+          component: () => import('../views/StoreView.vue'),
+        },
+        {
+          path: '/bookmarks',
+          component: () => import('../views/BookmarksView.vue'),
+        },
+        {
+          path: '/billing',
+          component: () => import('../views/BillingView.vue'),
+        },
+        {
+          path: '/update-profile',
+          component: () => import('../views/UpdateProfile.vue'),
+        },
+        {
+          path: '/settings',
+          component: () => import('../views/SettingsView.vue'),
+        },
+      ],
       beforeEnter: () => {
-        if (localStorage.getItem('token')) return true;
+        if (localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN)) return true;
         return '/login';
       },
     },
@@ -37,7 +65,7 @@ const router = createRouter({
         },
       ],
       beforeEnter: () => {
-        if (!localStorage.getItem('token')) return true;
+        if (!localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN)) return true;
         return '/';
       },
     },
@@ -51,6 +79,11 @@ const router = createRouter({
           meta: { title: 'Contact Us' },
         },
       ],
+    },
+    // Not Found (404) Route
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/login',
     },
   ],
 });
