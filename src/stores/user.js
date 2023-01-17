@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import jwtDecode from 'jwt-decode';
 import dx from '@/libs/dashx';
-import { LOCAL_STORAGE_JWT_TOKEN } from '@/utils/constants';
+import { LOCAL_STORAGE_JWT_TOKEN, LOCAL_STORAGE_DASHX_TOKEN } from '@/utils/constants';
 import apiClient from '@/libs/apiClient';
 
 export const useUserStore = defineStore({
@@ -12,12 +12,15 @@ export const useUserStore = defineStore({
   actions: {
     async fetchUser() {
       const jwtToken = localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN);
-      if (!jwtToken) {
+      const dashxToken = localStorage.getItem(LOCAL_STORAGE_DASHX_TOKEN);
+
+      if (!jwtToken || !dashxToken) {
         this.user = null;
         return;
       }
+
       const decodedToken = jwtDecode(jwtToken);
-      const { dashx_token: dashxToken, user } = decodedToken;
+      const { user } = decodedToken;
       dx.setIdentity(user.id, dashxToken);
 
       const { data } = await apiClient.get('/profile');
