@@ -20,7 +20,7 @@ const onSubmit = async (values) => {
 
   try {
     const response = await apiClient.post('/login', values);
-    const { data: { token , dashx_token: dashxToken } = {}, status } = response;
+    const { data: { token, dashx_token: dashxToken } = {}, status } = response;
 
     if (status === 200 && token && dashxToken) {
       localStorage.setItem(LOCAL_STORAGE_JWT_TOKEN, token);
