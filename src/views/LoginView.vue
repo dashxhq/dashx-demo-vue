@@ -22,7 +22,7 @@ const onSubmit = async (values) => {
     const response = await apiClient.post('/login', values);
     const { data: { token , dashx_token: dashxToken } = {}, status } = response;
 
-    if (status === 200 && token) {
+    if (status === 200 && token && dashxToken) {
       localStorage.setItem(LOCAL_STORAGE_JWT_TOKEN, token);
       localStorage.setItem(LOCAL_STORAGE_DASHX_TOKEN, dashxToken);
       router.replace('/');
