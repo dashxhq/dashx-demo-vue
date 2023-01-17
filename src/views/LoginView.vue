@@ -7,7 +7,7 @@ import Alert from '@/components/Alert.vue';
 import Button from '@/components/Button.vue';
 import Input from '@/components/Input.vue';
 import apiClient from '@/libs/apiClient';
-import { LOCAL_STORAGE_JWT_TOKEN } from '@/utils/constants';
+import { LOCAL_STORAGE_JWT_TOKEN, LOCAL_STORAGE_DASHX_TOKEN } from '@/utils/constants';
 
 const router = useRouter();
 
@@ -20,10 +20,11 @@ const onSubmit = async (values) => {
 
   try {
     const response = await apiClient.post('/login', values);
-    const { data: { token } = {}, status } = response;
+    const { data: { token , dashx_token: dashxToken } = {}, status } = response;
 
     if (status === 200 && token) {
       localStorage.setItem(LOCAL_STORAGE_JWT_TOKEN, token);
+      localStorage.setItem(LOCAL_STORAGE_DASHX_TOKEN, dashxToken);
       router.replace('/');
     }
   } catch (error) {
