@@ -6,8 +6,9 @@ import { ref } from 'vue';
 import Alert from '@/components/Alert.vue';
 import Button from '@/components/Button.vue';
 import Input from '@/components/Input.vue';
-import dx from '@/libs/dashx';
 import apiClient from '@/libs/apiClient';
+import dx from '@/libs/dashx';
+import jwtDecode from 'jwt-decode';
 import { LOCAL_STORAGE_JWT_TOKEN } from '@/utils/constants';
 
 const router = useRouter();
