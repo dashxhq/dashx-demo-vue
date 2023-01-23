@@ -14,6 +14,7 @@ import { useUserStore } from '@/stores/user';
 import { useSidebarStore } from '@/stores/sidebar';
 import { LOCAL_STORAGE_JWT_TOKEN } from '@/utils/constants';
 import Avatar from '../../Avatar.vue';
+import dx from '@/libs/dashx';
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -26,6 +27,7 @@ const userNavigation = [
 
 const logout = () => {
   localStorage.removeItem(LOCAL_STORAGE_JWT_TOKEN);
+  dx.reset();
   router.push('/login');
   userStore.fetchUser();
 };
