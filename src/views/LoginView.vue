@@ -7,7 +7,9 @@ import Alert from '@/components/Alert.vue';
 import Button from '@/components/Button.vue';
 import Input from '@/components/Input.vue';
 import apiClient from '@/libs/apiClient';
-import { LOCAL_STORAGE_JWT_TOKEN, LOCAL_STORAGE_DASHX_TOKEN } from '@/utils/constants';
+import dx from '@/libs/dashx';
+import jwtDecode from 'jwt-decode';
+import { LOCAL_STORAGE_JWT_TOKEN } from '@/utils/constants';
 
 const router = useRouter();
 
@@ -24,7 +26,12 @@ const onSubmit = async (values) => {
 
     if (status === 200 && token && dashxToken) {
       localStorage.setItem(LOCAL_STORAGE_JWT_TOKEN, token);
-      localStorage.setItem(LOCAL_STORAGE_DASHX_TOKEN, dashxToken);
+
+      const decodedToken = jwtDecode(token);
+      const { user } = decodedToken;
+
+      dx.setIdentity(user.id, dashxToken);
+
       router.replace('/');
     }
   } catch (error) {
